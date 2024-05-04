@@ -193,7 +193,8 @@ class Client(pyrogram.client.Client.on_callback_query()):
     async def stop_listener(self, listener: Listener):
         self.remove_listener(listener)
 
-        if listener.future.done():
+        # we have to check if listener.future is not None [incase of Client.next_step_handler is used this will be None]
+        if listner.future is not None and listener.future.done():
             return
 
         if callable(config.stopped_handler):
@@ -204,7 +205,8 @@ class Client(pyrogram.client.Client.on_callback_query()):
                     None, config.stopped_handler, None, listener
                 )
         elif config.throw_exceptions:
-            listener.future.set_exception(ListenerStopped())
+            if listener.future is not None:
+                listener.future.set_exception(ListenerStopped())
 
     @should_patch()
     def register_next_step_handler(
