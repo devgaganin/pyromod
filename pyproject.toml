@@ -5,9 +5,6 @@ description = "A monkeypatcher add-on for Pyrogram that does conversation handli
 authors = [
     { name = "Pauxis", email = "pauxiscezar@gmail.com" }
 ]
-dependencies = [
-    "pyrogram >= 1.0"
-]
 readme = "README.md"
 requires-python = ">= 3.8"
 
